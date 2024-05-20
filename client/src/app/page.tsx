@@ -1,6 +1,11 @@
+"use client";
 import React from "react";
-import SignUp from "./signup/page";
+import { StoreProvider } from "../redux/storeProvider";
 
-export default function App() {
-  return <div>App</div>;
+export default function Home() {
+  return (
+    <StoreProvider>
+      <main>Home</main>;
+    </StoreProvider>
+  );
 }

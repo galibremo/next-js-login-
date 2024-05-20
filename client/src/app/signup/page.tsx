@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { baseURL } from "../../../../server/utils/url";
-import { log } from "console";
 
 interface SignUpForm {
   username: string;
@@ -33,21 +32,18 @@ export default function SignUp() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/auth/signup",
-        formData
-      );
+      const res = await axios.post(`${baseURL}/auth/signup`, formData);
       setLoading(false);
 
       if (res.status === 200) {
         const data = res.data;
         toast.success(data.message);
+        redirect("/signin");
       }
     } catch (error: any) {
       setLoading(false);
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -100,7 +96,7 @@ export default function SignUp() {
           <input
             className="p-2 rounded-md font-semibold border border-black hover:text-white hover:bg-teal-400 mt-5 cursor-pointer"
             type="submit"
-            value="Submit"
+            value="Signup"
           />
         </form>
       </div>
